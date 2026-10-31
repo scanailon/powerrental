@@ -1,0 +1,324 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-jbmono);
+  --font-display: var(--font-archivo);
+}
+
+:root {
+  color-scheme: light;
+}
+
+html,
+body {
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #fafafa;
+  color: #0a0a0b;
+  font-family: var(--font-inter), ui-sans-serif, system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+
+/* ── Entradas animadas ── */
+
+@keyframes prFadeY {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes prFadeX {
+  from { opacity: 0; transform: translateX(-20px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes prFadeS {
+  from { opacity: 0; transform: scale(0.98); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes prFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.pr-anim-y,
+.pr-anim-x,
+.pr-anim-scale,
+.pr-anim-fade {
+  opacity: 0;
+}
+.pr-anim-y { animation: prFadeY 0.7s cubic-bezier(0.16, 0.84, 0.32, 1) both; }
+.pr-anim-x { animation: prFadeX 0.8s cubic-bezier(0.16, 0.84, 0.32, 1) both; }
+.pr-anim-scale { animation: prFadeS 0.9s cubic-bezier(0.16, 0.84, 0.32, 1) both; }
+.pr-anim-fade { animation: prFade 0.8s cubic-bezier(0.16, 0.84, 0.32, 1) both; }
+
+/* ── Diálogos ── */
+
+@keyframes prDialogVeil {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes prDialogPanel {
+  from { opacity: 0; transform: translateY(12px) scale(0.97); }
+  to { opacity: 1; transform: none; }
+}
+.pr-dialog-veil { animation: prDialogVeil 0.2s ease-out both; }
+.pr-dialog-panel { animation: prDialogPanel 0.3s cubic-bezier(0.16, 0.84, 0.32, 1) both; }
+
+/* ── Hero ── */
+
+@keyframes prKenBurns {
+  from { transform: scale(1.06) translate(0, 0); transform-origin: 50% 40%; }
+  to { transform: scale(1.16) translate(-1.5%, -1.5%); transform-origin: 50% 40%; }
+}
+.pr-kenburns {
+  animation: prKenBurns 26s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+@keyframes prHeroCurrent {
+  from { background-position: 220% 0; }
+  to { background-position: -20% 0; }
+}
+.pr-hero-current {
+  background-image: linear-gradient(
+    100deg,
+    color-mix(in oklab, var(--pr-accent) 48%, #fff) 0%,
+    #fff 28%,
+    color-mix(in oklab, var(--pr-accent) 88%, #fff) 50%,
+    #fff 72%,
+    color-mix(in oklab, var(--pr-accent) 48%, #fff) 100%
+  );
+  background-size: 220% 100%;
+  background-repeat: no-repeat;
+  background-position: 50% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  padding-bottom: 0.04em;
+}
+@supports not ((-webkit-background-clip: text) or (background-clip: text)) {
+  .pr-hero-current {
+    color: var(--pr-accent);
+    -webkit-text-fill-color: var(--pr-accent);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pr-hero-current {
+    animation: none;
+    background-position: 50% 0;
+  }
+}
+
+.pr-noise {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+}
+
+@keyframes prScrollCue {
+  0%, 100% { transform: translateY(0); opacity: 0.55; }
+  50% { transform: translateY(6px); opacity: 1; }
+}
+.pr-scroll-cue { animation: prScrollCue 1.9s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .pr-kenburns,
+  .pr-scroll-cue {
+    animation: none;
+  }
+}
+
+@keyframes prArrowBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(4px); }
+}
+.pr-arrow-bounce { animation: prArrowBounce 1.8s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+
+/* ── Marquesina de eventos ── */
+
+@keyframes prMarquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.pr-marquee-track {
+  animation: prMarquee 65s linear infinite;
+  will-change: transform;
+}
+.pr-marquee-item {
+  font-family: var(--font-inter), sans-serif;
+  font-weight: 300;
+  font-size: clamp(22px, 2.6vw, 34px);
+  letter-spacing: -0.015em;
+  line-height: 1;
+  color: rgba(10, 10, 11, 0.92);
+}
+
+/* ── Corriente animada (líneas del fondo del hero) ── */
+
+@keyframes prCurrent {
+  from { stroke-dashoffset: 0; }
+  to { stroke-dashoffset: -1620px; }
+}
+.pr-current { animation: prCurrent linear infinite; }
+
+/* ── Galería ── */
+
+.pr-gallery-masonry {
+  column-count: 1;
+  column-gap: 1rem;
+}
+@media (min-width: 640px) {
+  .pr-gallery-masonry { column-count: 2; column-gap: 1.25rem; }
+}
+@media (min-width: 1024px) {
+  .pr-gallery-masonry { column-count: 3; column-gap: 1.25rem; }
+}
+@media (min-width: 1280px) {
+  .pr-gallery-masonry { column-count: 4; column-gap: 1.25rem; }
+}
+.pr-gallery-masonry-item {
+  break-inside: avoid;
+  page-break-inside: avoid;
+  -webkit-column-break-inside: avoid;
+  display: block;
+  width: 100%;
+  margin: 0 0 1rem;
+}
+@media (min-width: 640px) {
+  .pr-gallery-masonry-item { margin-bottom: 1.25rem; }
+}
+
+/* ── Navegación ── */
+
+.pr-nav-pill {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(255, 255, 255, 0.16);
+}
+.pr-nav-pill:hover {
+  background: color-mix(in oklab, var(--pr-accent) 22%, transparent);
+  border-color: color-mix(in oklab, var(--pr-accent) 55%, transparent);
+}
+.pr-nav-pill:active {
+  transform: translateY(0);
+}
+
+/* ── Texturas y líneas energizadas ── */
+
+.pr-grid {
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 54px 54px;
+  mask-image: radial-gradient(ellipse 75% 70% at 50% 45%, #000 0%, transparent 80%);
+  -webkit-mask-image: radial-gradient(ellipse 75% 70% at 50% 45%, #000 0%, transparent 80%);
+}
+
+.pr-energized-line {
+  position: relative;
+  height: 1px;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+}
+.pr-energized-line--light {
+  background: rgba(10, 10, 11, 0.1);
+}
+.pr-energized-line::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -35%;
+  width: 35%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, var(--pr-accent), transparent);
+  filter: blur(0.5px);
+  animation: prFlow 4.5s linear infinite;
+}
+@keyframes prFlow {
+  from { left: -35%; }
+  to { left: 100%; }
+}
+
+.pr-energized-rail {
+  position: relative;
+  width: 1px;
+  background: rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+}
+.pr-energized-rail::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: -30%;
+  width: 100%;
+  height: 30%;
+  background: linear-gradient(180deg, transparent, var(--pr-accent), transparent);
+  filter: blur(0.5px);
+  animation: prFlowY 5s linear infinite;
+}
+@keyframes prFlowY {
+  from { top: -30%; }
+  to { top: 100%; }
+}
+
+.pr-grid-light {
+  background-image:
+    linear-gradient(to right, rgba(10, 10, 11, 0.043) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(10, 10, 11, 0.043) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse 80% 72% at 50% 42%, #000 0%, transparent 82%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 72% at 50% 42%, #000 0%, transparent 82%);
+}
+
+.pr-grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 140px 140px;
+}
+
+:where(a, button, input, textarea, select, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--pr-accent, #2c2eff);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pr-current {
+    animation: none !important;
+    opacity: 0.12;
+  }
+  .pr-energized-line::after,
+  .pr-energized-rail::after {
+    animation: none !important;
+    opacity: 0.5;
+  }
+  .pr-anim-y,
+  .pr-anim-x,
+  .pr-anim-scale,
+  .pr-anim-fade,
+  .pr-dialog-veil,
+  .pr-dialog-panel {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .pr-marquee-track,
+  .pr-arrow-bounce,
+  .animate-ping {
+    animation: none !important;
+  }
+}
